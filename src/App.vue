@@ -1,5 +1,9 @@
 <template>
   <v-app id="example-3" standalone>
+    <v-toolbar class="blue-grey darken-4" dark>
+      <v-icon dark>contacts</v-icon>
+      <v-toolbar-title>My Contacts</v-toolbar-title>
+    </v-toolbar>
     <v-navigation-drawer permanent floating light class="transparent">
       <v-card class="ma-3">
         <v-list dense class="py-0">
@@ -14,9 +18,6 @@
         </v-list>
       </v-card>
     </v-navigation-drawer>
-    <v-toolbar class="purple" dark>
-      <v-toolbar-title>Toolbar</v-toolbar-title>
-    </v-toolbar>
     <main>
       <v-container fluid>
         <!--v-router-->
@@ -25,19 +26,19 @@
   </v-app>
 </template>
 
-<script>
-  export default {
-    data () {
-      return {
-        drawer: null,
-        items: [
-          { title: 'Home', icon: 'dashboard' },
-          { title: 'About', icon: 'question_answer' }
-        ],
-        right: null
-      }
+  <script>
+export default {
+  data() {
+    return {
+      drawer: null,
+      items: [
+        { title: 'Home', icon: 'dashboard' },
+        { title: 'About', icon: 'question_answer' }
+      ],
+      right: null
     }
   }
+}
 </script>
 
 
