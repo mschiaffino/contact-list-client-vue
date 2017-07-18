@@ -17,6 +17,11 @@ module.exports = {
   ],
   // add your custom rules here
   'rules': {
+    "space-before-function-paren": ["error", {
+        "anonymous": "always",
+        "named": "never",
+        "asyncArrow": "always"
+    }],
     // allow paren-less arrow functions
     'arrow-parens': 0,
     // allow async-await
