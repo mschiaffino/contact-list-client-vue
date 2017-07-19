@@ -5,6 +5,7 @@
       <v-toolbar-title>My Contacts</v-toolbar-title>
     </v-toolbar>
     <v-navigation-drawer permanent floating light class="transparent">
+      <contact-search></contact-search>
       <contact-list></contact-list>
     </v-navigation-drawer>
     <main>
