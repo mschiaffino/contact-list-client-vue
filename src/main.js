@@ -5,13 +5,21 @@ import Vuetify from 'vuetify'
 import App from './App'
 import router from './router'
 
+import { store } from './store'
+
+// Custom components
+import ContactList from './components/ContactList'
+
 Vue.use(Vuetify)
 Vue.config.productionTip = false
+
+Vue.component('contact-list', ContactList)
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })
