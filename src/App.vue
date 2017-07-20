@@ -17,12 +17,20 @@
 </template>
 
 <script>
+// Custom components
+import ContactList from './components/ContactList'
+import ContactSearch from './components/ContactSearch'
+
 export default {
   data() {
     return {
       drawer: null,
       right: null
     }
+  },
+  components: {
+    ContactList,
+    ContactSearch
   }
 }
 </script>

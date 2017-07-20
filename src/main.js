@@ -5,17 +5,10 @@ import Vuetify from 'vuetify'
 import App from './App'
 import router from './router'
 
-import { store } from './store'
-
-// Custom components
-import ContactList from './components/ContactList'
-import ContactSearch from './components/ContactSearch'
+import { store } from './vuex/store'
 
 Vue.use(Vuetify)
 Vue.config.productionTip = false
-
-Vue.component('contact-list', ContactList)
-Vue.component('contact-search', ContactSearch)
 
 /* eslint-disable no-new */
 new Vue({
