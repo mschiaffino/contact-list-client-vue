@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import mockedData from './mockedData.json'
+import * as services from '../services'
 
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-    contacts: mockedData.contacts,
+    contacts: [],
     searchValue: ''
   },
   getters: {
@@ -23,6 +23,25 @@ export const store = new Vuex.Store({
   mutations: {
     updateSearch(state, searchValue) {
       state.searchValue = searchValue
+    },
+    updateContacts(state, contacts) {
+      state.contacts = contacts
+    }
+  },
+  actions: {
+    fetchContacts({ commit }) {
+      // Call the contacts service on the server via websocket
+      services.contactsService.find({
+        query: {
+          $sort: {
+            firstName: 1,
+            lastName: 1
+          }
+        }
+      }).then(contacts => {
+        // Be careful, if pagination is used commit should receive contacts.data as parameter
+        commit('updateContacts', contacts)
+      })
     }
   }
 })
