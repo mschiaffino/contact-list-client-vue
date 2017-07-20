@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ma-3 contact-list-card">
+  <v-card class="mx-3 mb-3 contact-list-card">
     <v-list dense class="py-0">
       <v-list-tile v-for="contact in filteredContacts" :key="contact._id">
         <v-list-tile-action>
