@@ -10,7 +10,9 @@
     </v-navigation-drawer>
     <main>
       <v-container fluid>
-        <!--v-router-->
+        <v-card class="pa-4 main-content-panel">
+          <router-view></router-view>
+        </v-card>
       </v-container>
     </main>
   </v-app>
@@ -45,4 +47,17 @@ export default {
     overflow-y: hidden;
     padding-bottom: 0;
   }
+
+  main {
+    height: calc(100vh - 64px);
+
+    .container {
+      height: 100%;
+
+      .main-content-panel {
+        height: 100% !important;
+      }
+    }
+  }
+
 </style>
