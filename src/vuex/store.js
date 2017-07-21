@@ -13,9 +13,15 @@ export const store = new Vuex.Store({
     contacts(state) {
       return state.contacts
     },
+
+    contactById(state) {
+      return id => state.contacts.find(contact => contact._id === id)
+    },
+
     contactFullName(state) {
       return contact => `${contact.firstName} ${contact.lastName}`
     },
+
     filteredContacts(state, getters) {
       return state.contacts.filter((contact) => getters.contactFullName(contact).toLowerCase().includes(state.searchValue.toLowerCase()))
     }
@@ -24,6 +30,7 @@ export const store = new Vuex.Store({
     updateSearch(state, searchValue) {
       state.searchValue = searchValue
     },
+
     updateContacts(state, contacts) {
       state.contacts = contacts
     }

@@ -46,15 +46,19 @@ export default {
     flex-direction: column;
     overflow-y: hidden;
     padding-bottom: 0;
+    margin-left: 20vw;
   }
 
   main {
     height: calc(100vh - 64px);
-
+    margin-left: 20vw;
+    padding-right: 20vw;
+    
     .container {
       height: 100%;
 
       .main-content-panel {
+        max-width: 640px;
         height: 100% !important;
       }
     }
