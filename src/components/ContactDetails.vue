@@ -33,7 +33,7 @@
     </v-flex>
   
     <v-layout justify-end>
-      <contact-action-buttons></contact-action-buttons>
+      <contact-action-buttons contact-id="contact._id"></contact-action-buttons>
     </v-layout>
   </v-layout>
 </template>

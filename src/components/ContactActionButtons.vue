@@ -8,7 +8,7 @@
       <v-btn fab dark small class="green">
         <v-icon>edit</v-icon>
       </v-btn>
-      <v-btn fab dark small class="red">
+      <v-btn fab dark small class="red" @click.native="deleteContact()">
         <v-icon>delete</v-icon>
       </v-btn>
     </v-speed-dial>
@@ -16,18 +16,22 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   data: () => {
     return {
       show: false
     }
   },
+  computed: {
+    ...mapActions(['deleteContact'])
+  },
   mounted() {
     this.show = true
   }
 }
 </script>
-
 
 <style>
 .speed-dial {

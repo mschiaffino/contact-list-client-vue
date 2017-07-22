@@ -8,7 +8,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    { path: '/', component: NoContactSelected },
+    { name: 'home', path: '/', component: NoContactSelected },
     { name: 'contact', path: '/contact/:id', component: ContactDetails, props: true }
   ]
 })

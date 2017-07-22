@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import * as services from '../services'
+import router from '../router/index'
 
 Vue.use(Vuex)
 
@@ -46,9 +47,21 @@ export const store = new Vuex.Store({
           }
         }
       }).then(contacts => {
-        // Be careful, if pagination is used commit should receive contacts.data as parameter
+        // Warning! if pagination is used commit should receive contacts.data as parameter
         commit('updateContacts', contacts)
+        // commit('updateContacts', contacts.data)
       })
+    },
+    deleteContact({ dispatch }) {
+      const contactId = router.currentRoute.params.id
+      services.contactsService.remove(contactId)
+        .then((result) => {
+          router.push({ name: 'home' })
+          dispatch('fetchContacts')
+        })
+        .catch((result) => {
+          console.error(result)
+        })
     }
   }
 })
