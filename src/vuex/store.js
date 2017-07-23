@@ -31,6 +31,10 @@ export const store = new Vuex.Store({
 
     editionEnabled(state) {
       return state.editionEnabled
+    },
+
+    searchValue(state) {
+      return state.searchValue
     }
   },
   mutations: {
