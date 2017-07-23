@@ -17,7 +17,7 @@
           <template scope="{ save, cancel }">
             <v-card-actions>
               <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
-              <v-btn flat primary @click.native="save()">Save</v-btn>
+              <v-btn flat primary @click.native="save()">Accept</v-btn>
             </v-card-actions>
           </template>
         </v-date-picker>
@@ -34,8 +34,8 @@
   
     <v-fab-transition>
       <v-layout v-show="editionEnabled" justify-center>
-        <v-btn light @click.native="discardChanges()">Discard</v-btn>
-        <v-btn class="blue-grey darken-2 white--text" @click.native="saveChanges()">Save</v-btn>
+        <v-btn secondary @click.native="discardChanges()">Discard</v-btn>
+        <v-btn primary @click.native="saveChanges()">Save</v-btn>
       </v-layout>
     </v-fab-transition>
   

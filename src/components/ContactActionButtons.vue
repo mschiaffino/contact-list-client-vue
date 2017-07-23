@@ -2,14 +2,14 @@
   <div>
     <v-fab-transition>
       <v-speed-dial v-model="speedDial" bottom right direction="top" hover transition="slide-y-transition" v-show="show">
-        <v-btn slot="activator" class="blue-grey darken-2" dark fab hover>
+        <v-btn slot="activator" primary dark fab hover>
           <v-icon>account_circle</v-icon>
           <v-icon>close</v-icon>
         </v-btn>
-        <v-btn fab dark small class="green" @click.native="enableEdition()">
+        <v-btn fab dark small class="green darken-2" @click.native="enableEdition()">
           <v-icon>edit</v-icon>
         </v-btn>
-        <v-btn fab dark small class="red" @click.native.stop="confirmDeletion()">
+        <v-btn fab dark small class="red darken-2" @click.native.stop="confirmDeletion()">
           <v-icon>delete</v-icon>
         </v-btn>
       </v-speed-dial>
