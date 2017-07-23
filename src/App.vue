@@ -1,5 +1,5 @@
 <template>
-  <v-app id="example-3" standalone>
+  <v-app id="contact-list" standalone>
     <v-toolbar class="blue-grey darken-4" dark>
       <v-icon dark>contacts</v-icon>
       <v-toolbar-title>My Contacts</v-toolbar-title>

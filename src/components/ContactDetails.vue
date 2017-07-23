@@ -1,5 +1,5 @@
 <template>
-  <v-layout column class="mx-3">
+  <v-layout column class="mx-3" v-if="showDetails">
     <span v-text="contactFullName(contactById(id))" class="my-5 display-2 text-xs-center"></span>
   
     <v-flex xs8 offset-xs2>
@@ -45,6 +45,10 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'contact-details',
   props: ['id'],
+  data: () => ({
+    showDetails: false,
+    menu: false
+  }),
   computed: {
     ...mapGetters(['contactById', 'contactFullName']),
 
@@ -55,6 +59,10 @@ export default {
   },
   components: {
     'contact-action-buttons': ContactActionButtons
+  },
+  mounted() {
+    this.showDetails = true
   }
+
 }
 </script>
