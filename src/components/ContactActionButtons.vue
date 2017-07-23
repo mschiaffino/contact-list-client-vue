@@ -1,12 +1,12 @@
 <template>
-  <div>  
+  <div>
     <v-fab-transition>
       <v-speed-dial v-model="speedDial" bottom right direction="top" hover transition="slide-y-transition" v-show="show">
-        <v-btn slot="activator" class="blue darken-2" dark fab hover>
+        <v-btn slot="activator" class="blue-grey darken-2" dark fab hover>
           <v-icon>account_circle</v-icon>
           <v-icon>close</v-icon>
         </v-btn>
-        <v-btn fab dark small class="green">
+        <v-btn fab dark small class="green" @click.native="enableEdition()">
           <v-icon>edit</v-icon>
         </v-btn>
         <v-btn fab dark small class="red" @click.native.stop="confirmDeletion()">
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 
 export default {
   data: () => {
@@ -40,16 +40,19 @@ export default {
       showingDeleteConfirmation: false
     }
   },
-  computed: {
-    ...mapActions(['deleteContact'])
-  },
   methods: {
+    ...mapActions(['deleteContact']),
+
+    ...mapMutations(['enableEdition']),
+
     confirmDeletion() {
       this.showingDeleteConfirmation = true
     },
+
     deletionCanceled() {
       this.showingDeleteConfirmation = false
     },
+
     deletionConfirmed() {
       this.showingDeleteConfirmation = false
       this.deleteContact()

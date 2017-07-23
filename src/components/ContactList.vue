@@ -20,15 +20,18 @@ export default {
   name: 'contact-list',
   methods: {
     ...mapActions(['fetchContacts']),
+
+    ...mapMutations(['selectContact', 'disableEdition']),
+
     showContact: function (contact) {
+      this.disableEdition()
       this.$router.push({ name: 'contact', params: { id: contact._id } })
     }
   },
   computed: {
-    ...mapGetters(['filteredContacts', 'contactFullName']),
-    ...mapMutations(['selectContact'])
+    ...mapGetters(['filteredContacts', 'contactFullName'])
   },
-  mounted() {
+  created() {
     this.fetchContacts()
   }
 }
