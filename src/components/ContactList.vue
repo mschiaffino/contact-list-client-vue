@@ -3,7 +3,7 @@
     <v-list dense class="py-0">
       <v-list-tile v-show="noMatchingContact">
         <v-list-tile-content>
-          <v-list-tile-title class="text-xs-center">No matching contact found</v-list-tile-title>
+          <v-list-tile-title class="text-xs-center">No matching contacts found</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
   
