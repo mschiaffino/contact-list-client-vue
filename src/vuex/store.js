@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import * as services from '../services'
 import router from '../router/index'
-// import cloneDeep from 'clone-deep'
+
+const alertsDuration = 1500
 
 Vue.use(Vuex)
 
@@ -10,7 +11,9 @@ export const store = new Vuex.Store({
   state: {
     contacts: [],
     searchValue: '',
-    editionEnabled: false
+    editionEnabled: false,
+    showAlertSuccessfullyDeleted: false,
+    showAlertChangesSuccessfullySaved: false
   },
   getters: {
     contacts(state) {
@@ -35,6 +38,14 @@ export const store = new Vuex.Store({
 
     searchValue(state) {
       return state.searchValue
+    },
+
+    showAlertSuccessfullyDeleted(state) {
+      return state.showAlertSuccessfullyDeleted
+    },
+
+    showAlertChangesSuccessfullySaved(state) {
+      return state.showAlertChangesSuccessfullySaved
     }
   },
   mutations: {
@@ -52,6 +63,22 @@ export const store = new Vuex.Store({
 
     disableEdition(state) {
       state.editionEnabled = false
+    },
+
+    showAlertSuccessfullyDeleted(state) {
+      state.showAlertSuccessfullyDeleted = true
+    },
+
+    hideAlertSuccessfullyDeleted(state) {
+      state.showAlertSuccessfullyDeleted = false
+    },
+
+    showAlertChangesSuccessfullySaved(state) {
+      state.showAlertChangesSuccessfullySaved = true
+    },
+
+    hideAlertChangesSuccessfullySaved(state) {
+      state.showAlertChangesSuccessfullySaved = false
     }
   },
   actions: {
@@ -66,7 +93,7 @@ export const store = new Vuex.Store({
         }
       })
         .then(contacts => {
-          // Warning! if pagination is used, commit should receive contacts.data as parameter
+          // Warning! if pagination is used in feathers backend, commit should receive contacts.data as parameter
           commit('updateContacts', contacts)
         })
         .catch(() => {
@@ -80,6 +107,7 @@ export const store = new Vuex.Store({
       services.contactsService.remove(contactId)
         .then((result) => {
           router.push({ name: 'home' })
+          dispatch('showAlertSuccessfullyDeleted')
           dispatch('fetchContacts')
         })
         .catch((result) => {
@@ -91,8 +119,23 @@ export const store = new Vuex.Store({
       services.contactsService.update(contact._id, contact)
         .then(() => {
           commit('disableEdition')
+          dispatch('showAlertChangesSuccessfullySaved')
           dispatch('fetchContacts')
         })
+    },
+
+    showAlertSuccessfullyDeleted({ commit }) {
+      commit('showAlertSuccessfullyDeleted')
+      setTimeout(function () {
+        commit('hideAlertSuccessfullyDeleted')
+      }, alertsDuration)
+    },
+
+    showAlertChangesSuccessfullySaved({ commit }) {
+      commit('showAlertChangesSuccessfullySaved')
+      setTimeout(function () {
+        commit('hideAlertChangesSuccessfullySaved')
+      }, alertsDuration)
     }
   }
 })

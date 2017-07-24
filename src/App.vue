@@ -11,6 +11,7 @@
     <main>
       <v-container fluid>
         <v-card class="pa-4 main-content-panel">
+          <alerts></alerts>  
           <router-view></router-view>
         </v-card>
       </v-container>
@@ -22,6 +23,7 @@
 // Custom components
 import ContactList from './components/ContactList'
 import ContactSearch from './components/ContactSearch'
+import Alerts from './components/Alerts'
 
 export default {
   data() {
@@ -32,7 +34,8 @@ export default {
   },
   components: {
     ContactList,
-    ContactSearch
+    ContactSearch,
+    Alerts
   }
 }
 </script>
