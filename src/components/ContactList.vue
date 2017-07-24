@@ -5,7 +5,7 @@
       <v-list-tile v-if="fetchingContacts">
         <v-progress-circular indeterminate v-bind:size="40" class="primary--text loading-contacts-spinner"></v-progress-circular>
         <v-list-tile-content>
-          <v-list-tile-title class="text-xs-center">Loading contact list</v-list-tile-title>
+          <v-list-tile-title class="text-xs-center">Loading contacts</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
   
