@@ -1,6 +1,7 @@
 <template>
   <v-layout column class="mx-3" v-if="showDetails">
-    <span v-text="contactFullName(contact)" class="my-5 display-2 text-xs-center blue-grey--text"></span>
+    
+    <span v-text="contactFullName(contact)" class="full-name my-5 display-2 text-xs-center blue-grey--text"></span>
   
     <v-flex xs8 offset-xs2>
       <v-text-field :disabled="!editionEnabled" v-model="contact.firstName" name="firstName" label="First name"></v-text-field>
@@ -88,3 +89,11 @@ export default {
 
 }
 </script>
+
+<style lang="stylus" scoped>
+.full-name{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+</style>
