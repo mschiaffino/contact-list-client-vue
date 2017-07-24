@@ -1,6 +1,6 @@
 <template>
   <v-layout column class="mx-3" v-if="showDetails">
-    
+  
     <span v-text="contactFullName(contact)" class="full-name my-5 display-2 text-xs-center blue-grey--text"></span>
   
     <v-flex xs8 offset-xs2>
@@ -60,7 +60,7 @@ export default {
     contact: {}
   }),
   computed: {
-    ...mapGetters(['contactById', 'contactFullName', 'editionEnabled'])
+    ...mapGetters(['contactById', 'contactFullName', 'editionEnabled', 'fetchingContacts'])
   },
   methods: {
     ...mapMutations(['disableEdition']),
@@ -72,18 +72,31 @@ export default {
     discardChanges() {
       this.disableEdition()
       Object.assign(this.contact, this.contactById(this.id))
+    },
+
+    loadContact() {
+      this.contact = cloneDeep(this.contactById(this.id))
+      if (this.contact) {
+        this.showDetails = true
+      }
     }
   },
   components: {
     'contact-action-buttons': ContactActionButtons
   },
   mounted() {
-    this.contact = cloneDeep(this.contactById(this.id))
-    this.showDetails = true
+    this.loadContact()
   },
   watch: {
+    fetchingContacts: function () {
+      if (!this.fetchingContacts) {
+        // Loads the contact after all contacts have been fetched
+        this.loadContact()
+      }
+    },
     id: function () {
-      this.contact = cloneDeep(this.contactById(this.id))
+      // Reloads when another contact is selected
+      this.loadContact()
     }
   }
 
