@@ -1,6 +1,14 @@
 <template>
   <v-card class="mx-3 mb-3 contact-list-card full-height">
+  
     <v-list dense class="py-0">
+      <v-list-tile v-if="fetchingContacts">
+        <v-progress-circular indeterminate v-bind:size="40" class="primary--text loading-contacts-spinner"></v-progress-circular>
+        <v-list-tile-content>
+          <v-list-tile-title class="text-xs-center">Loading contact list</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+  
       <v-list-tile v-show="noMatchingContact">
         <v-list-tile-content>
           <v-list-tile-title class="text-xs-center">No matching contacts found</v-list-tile-title>
@@ -41,14 +49,14 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['contacts', 'filteredContacts', 'contactFullName', 'searchValue']),
+    ...mapGetters(['contacts', 'filteredContacts', 'contactFullName', 'searchValue', 'fetchingContacts']),
 
     emptyContactList() {
-      return !this.contacts.length
+      return !this.contacts.length && !this.fetchingContacts
     },
 
     noMatchingContact() {
-      return this.searchValue && this.contacts.length && !this.filteredContacts.length
+      return this.searchValue && !this.fetchingContacts && this.contacts.length && !this.filteredContacts.length
     }
   },
   created() {
@@ -60,5 +68,14 @@ export default {
 <style lang="stylus">
 .contact-list-card {
   overflow-y: scroll;
+  overflow-x: hidden;
+
+  // .loading-contacts-spinner {
+  //   position: absolute;
+  //   left: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   top: 0;
+  // }
 }
 </style>

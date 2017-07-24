@@ -12,6 +12,7 @@ export const store = new Vuex.Store({
     contacts: [],
     searchValue: '',
     editionEnabled: false,
+    fetchingContacts: false,
     showAlertSuccessfullyDeleted: false,
     showAlertChangesSuccessfullySaved: false
   },
@@ -40,6 +41,10 @@ export const store = new Vuex.Store({
       return state.searchValue
     },
 
+    fetchingContacts(state) {
+      return state.fetchingContacts
+    },
+
     showAlertSuccessfullyDeleted(state) {
       return state.showAlertSuccessfullyDeleted
     },
@@ -65,6 +70,14 @@ export const store = new Vuex.Store({
       state.editionEnabled = false
     },
 
+    startedFetchingContacts(state) {
+      state.fetchingContacts = true
+    },
+
+    finishedFetchingContacts(state) {
+      state.fetchingContacts = false
+    },
+
     showAlertSuccessfullyDeleted(state) {
       state.showAlertSuccessfullyDeleted = true
     },
@@ -83,6 +96,7 @@ export const store = new Vuex.Store({
   },
   actions: {
     fetchContacts({ commit, dispatch }) {
+      commit('startedFetchingContacts')
       // Call the contacts service on the server via websocket
       services.contactsService.find({
         query: {
@@ -95,10 +109,13 @@ export const store = new Vuex.Store({
         .then(contacts => {
           // Warning! if pagination is used in feathers backend, commit should receive contacts.data as parameter
           commit('updateContacts', contacts)
+          commit('finishedFetchingContacts')
         })
         .catch(() => {
-          // If fetching contacts fails (probably saying timeout) fetch again
-          dispatch('fetchContacts')
+          // If fetching contacts fails (probably saying timeout) fetch again after a second
+          setTimeout(() => {
+            dispatch('fetchContacts')
+          }, 1000)
         })
     },
 
@@ -109,9 +126,6 @@ export const store = new Vuex.Store({
           router.push({ name: 'home' })
           dispatch('showAlertSuccessfullyDeleted')
           dispatch('fetchContacts')
-        })
-        .catch((result) => {
-          console.error(result)
         })
     },
 
