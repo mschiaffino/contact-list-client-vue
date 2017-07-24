@@ -89,7 +89,7 @@ export default {
   },
   watch: {
     fetchingContacts: function () {
-      if (!this.fetchingContacts) {
+      if (!this.fetchingContacts && !this.contact) {
         // Loads the contact after all contacts have been fetched
         this.loadContact()
       }
