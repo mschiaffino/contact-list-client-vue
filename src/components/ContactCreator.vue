@@ -13,12 +13,11 @@
 </template>
 
 <script>
-import contactForm from './ContactForm'
+import ContactForm from './ContactForm'
 import { mapMutations } from 'vuex'
 
 export default {
   name: 'contact-creator',
-  components: { 'contact-form': contactForm },
   data() {
     return {
       contact: {
@@ -43,7 +42,8 @@ export default {
   },
   mounted() {
     this.$store.commit('enableEdition')
-  }
+  },
+  components: { 'contact-form': ContactForm }
 }
 </script>
 

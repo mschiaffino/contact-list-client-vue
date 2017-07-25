@@ -1,37 +1,7 @@
 <template>
-  <v-layout column class="mx-3" v-if="showDetails">
+  <v-layout column class="mx-3">
   
-    <span v-text="contactFullName(contact)" class="full-name my-5 display-2 text-xs-center blue-grey--text"></span>
-  
-    <v-flex xs8 offset-xs2>
-      <v-text-field :disabled="!editionEnabled" v-model="contact.firstName" name="firstName" label="First name"></v-text-field>
-    </v-flex>
-  
-    <v-flex xs8 offset-xs2>
-      <v-text-field :disabled="!editionEnabled" v-model="contact.lastName" name="lastName" label="Last name"></v-text-field>
-    </v-flex>
-  
-    <v-flex xs8 offset-xs2>
-      <v-menu :disabled="!editionEnabled" lazy :close-on-content-click="false" v-model="menu" transition="scale-transition" offset-y full-width :nudge-left="40" max-width="290px">
-        <v-text-field slot="activator" label="Date of birth" :disabled="!editionEnabled" v-model="contact.dateOfBirth" append-icon="event" readonly></v-text-field>
-        <v-date-picker :disabled="!editionEnabled" v-model="contact.dateOfBirth" scrollable>
-          <template scope="{ save, cancel }">
-            <v-card-actions>
-              <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
-              <v-btn flat primary @click.native="save()">Accept</v-btn>
-            </v-card-actions>
-          </template>
-        </v-date-picker>
-      </v-menu>
-    </v-flex>
-  
-    <v-flex xs8 offset-xs2>
-      <v-text-field :disabled="!editionEnabled" v-model="contact.phone" name="phone" label="Phone number"></v-text-field>
-    </v-flex>
-  
-    <v-flex xs8 offset-xs2>
-      <v-text-field :disabled="!editionEnabled" v-model="contact.zipCode" name="zipCode" label="Zip code"></v-text-field>
-    </v-flex>
+    <contact-form :contact="contact" :show-details="showDetails"></contact-form>
   
     <v-fab-transition>
       <v-layout v-show="editionEnabled" justify-center>
@@ -48,6 +18,7 @@
 
 <script>
 import cloneDeep from 'clone-deep'
+import ContactForm from './ContactForm'
 import ContactActionButtons from './ContactActionButtons'
 import { mapGetters, mapMutations } from 'vuex'
 
@@ -81,9 +52,6 @@ export default {
       }
     }
   },
-  components: {
-    'contact-action-buttons': ContactActionButtons
-  },
   mounted() {
     this.loadContact()
   },
@@ -98,6 +66,10 @@ export default {
       // Reloads when another contact is selected
       this.loadContact()
     }
+  },
+  components: {
+    'contact-form': ContactForm,
+    'contact-action-buttons': ContactActionButtons
   }
 
 }
