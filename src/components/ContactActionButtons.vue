@@ -18,7 +18,7 @@
     <v-dialog v-model="showingDeleteConfirmation">
       <v-card>
         <v-card-title class="headline">Delete contact?</v-card-title>
-        <v-card-text>The contact won't be available anymore.</v-card-text>
+        <v-card-text>The contact won't be available anymore</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn class="blue-grey--text darken-1" flat="flat" @click.native="deletionCanceled()">Cancel</v-btn>

@@ -21,7 +21,7 @@
         </v-list-tile-content>
       </v-list-tile>
   
-      <v-list-tile v-for="contact in filteredContacts" :key="contact._id" v-on:click.native="showContact(contact)">
+      <v-list-tile v-for="contact in filteredContacts" :key="contact._id" v-on:click.native.stop="selectContact(contact)">
         <v-list-tile-action>
           <v-icon>account_circle</v-icon>
         </v-list-tile-action>
@@ -30,6 +30,19 @@
         </v-list-tile-content>
       </v-list-tile>
     </v-list>
+  
+    <v-dialog v-model="showConfirmationDialog">
+      <v-card>
+        <v-card-title class="headline">Leave edition?</v-card-title>
+        <v-card-text>All changes will be lost</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn class="blue-grey--text darken-1" flat="flat" @click.native="selectionCanceled()">Cancel</v-btn>
+          <v-btn class="red--text darken-1" flat="flat" @click.native="contactSelectionConfirmed()">Leave</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  
   </v-card>
 </template>
 
@@ -38,18 +51,38 @@ import { mapGetters, mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'contact-list',
+  data() {
+    return {
+      showConfirmationDialog: false,
+      clickedContact: undefined
+    }
+  },
   methods: {
     ...mapActions(['fetchContacts']),
 
     ...mapMutations(['selectContact', 'disableEdition']),
 
-    showContact: function (contact) {
+    selectContact(contact) {
+      this.clickedContact = contact
+      if (!this.editionEnabled) {
+        this.contactSelectionConfirmed()
+      } else {
+        this.showConfirmationDialog = true
+      }
+    },
+
+    contactSelectionConfirmed() {
       this.disableEdition()
-      this.$router.push({ name: 'contact', params: { id: contact._id } })
+      this.showConfirmationDialog = false
+      this.$router.push({ name: 'contact', params: { id: this.clickedContact._id } })
+    },
+
+    selectionCanceled() {
+      this.showConfirmationDialog = false
     }
   },
   computed: {
-    ...mapGetters(['contacts', 'filteredContacts', 'contactFullName', 'searchValue', 'fetchingContacts']),
+    ...mapGetters(['contacts', 'filteredContacts', 'contactFullName', 'searchValue', 'fetchingContacts', 'editionEnabled']),
 
     emptyContactList() {
       return !this.contacts.length && !this.fetchingContacts
@@ -59,6 +92,7 @@ export default {
       return this.searchValue && !this.fetchingContacts && this.contacts.length && !this.filteredContacts.length
     }
   },
+
   created() {
     this.fetchContacts()
   }
@@ -69,13 +103,5 @@ export default {
 .contact-list-card {
   overflow-y: scroll;
   overflow-x: hidden;
-
-  // .loading-contacts-spinner {
-  //   position: absolute;
-  //   left: 0;
-  //   right: 0;
-  //   bottom: 0;
-  //   top: 0;
-  // }
 }
 </style>
