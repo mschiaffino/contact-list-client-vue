@@ -7,11 +7,12 @@
     <v-navigation-drawer permanent floating light class="transparent">
       <contact-search></contact-search>
       <contact-list></contact-list>
+      <add-contact-button></add-contact-button>
     </v-navigation-drawer>
     <main>
       <v-container fluid>
         <v-card class="pa-4 main-content-panel">
-          <alerts></alerts>  
+          <alerts></alerts>
           <router-view></router-view>
         </v-card>
       </v-container>
@@ -24,6 +25,7 @@
 import ContactList from './components/ContactList'
 import ContactSearch from './components/ContactSearch'
 import Alerts from './components/Alerts'
+import AddContactButton from './components/AddContactButton'
 
 export default {
   data() {
@@ -35,7 +37,8 @@ export default {
   components: {
     ContactList,
     ContactSearch,
-    Alerts
+    Alerts,
+    AddContactButton
   }
 }
 </script>

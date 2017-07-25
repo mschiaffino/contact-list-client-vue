@@ -3,6 +3,9 @@ import Vuex from 'vuex'
 import * as services from '../services'
 import router from '../router/index'
 
+const contactCreatedMessage = 'The contact has been created'
+const contactDeletedMessage = 'The contact has been deleted'
+const contactUpdatedMessage = 'The contact has been updated'
 const alertsDuration = 1500
 
 Vue.use(Vuex)
@@ -14,7 +17,9 @@ export const store = new Vuex.Store({
     editionEnabled: false,
     fetchingContacts: false,
     showAlertSuccessfullyDeleted: false,
-    showAlertChangesSuccessfullySaved: false
+    showAlertChangesSuccessfullySaved: false,
+    showSuccessAlert: false,
+    alertMessage: ''
   },
   getters: {
     contacts(state) {
@@ -26,7 +31,7 @@ export const store = new Vuex.Store({
     },
 
     contactFullName(state) {
-      return contact => `${contact.firstName} ${contact.lastName}`
+      return contact => `${contact.firstName || ''} ${contact.lastName || ''}`
     },
 
     filteredContacts(state, getters) {
@@ -45,12 +50,12 @@ export const store = new Vuex.Store({
       return state.fetchingContacts
     },
 
-    showAlertSuccessfullyDeleted(state) {
-      return state.showAlertSuccessfullyDeleted
+    alertMessage(state) {
+      return state.alertMessage
     },
 
-    showAlertChangesSuccessfullySaved(state) {
-      return state.showAlertChangesSuccessfullySaved
+    showSuccessAlert(state) {
+      return state.showSuccessAlert
     }
   },
   mutations: {
@@ -78,20 +83,16 @@ export const store = new Vuex.Store({
       state.fetchingContacts = false
     },
 
-    showAlertSuccessfullyDeleted(state) {
-      state.showAlertSuccessfullyDeleted = true
+    setAlertMessage(state, message) {
+      state.alertMessage = message
     },
 
-    hideAlertSuccessfullyDeleted(state) {
-      state.showAlertSuccessfullyDeleted = false
+    showSuccessAlert(state) {
+      state.showSuccessAlert = true
     },
 
-    showAlertChangesSuccessfullySaved(state) {
-      state.showAlertChangesSuccessfullySaved = true
-    },
-
-    hideAlertChangesSuccessfullySaved(state) {
-      state.showAlertChangesSuccessfullySaved = false
+    hideSuccessAlert(state) {
+      state.showSuccessAlert = false
     }
   },
   actions: {
@@ -118,37 +119,38 @@ export const store = new Vuex.Store({
           }, 1000)
         })
     },
+    createContact({ commit, dispatch }, contact) {
+      services.contactsService.create(contact).then((createdContact) => {
+        commit('disableEdition')
+        dispatch('showSuccessAlert', contactCreatedMessage)
+        router.push({ name: 'contact', params: { id: createdContact._id } })
+        dispatch('fetchContacts')
+      })
+    },
 
     deleteContact({ dispatch }) {
       const contactId = router.currentRoute.params.id
       services.contactsService.remove(contactId)
         .then((result) => {
           router.push({ name: 'home' })
-          dispatch('showAlertSuccessfullyDeleted')
+          dispatch('showSuccessAlert', contactDeletedMessage)
           dispatch('fetchContacts')
         })
     },
 
     saveContactDetailsChanges({ commit, dispatch }, contact) {
-      services.contactsService.update(contact._id, contact)
-        .then(() => {
-          commit('disableEdition')
-          dispatch('showAlertChangesSuccessfullySaved')
-          dispatch('fetchContacts')
-        })
+      services.contactsService.update(contact._id, contact).then(() => {
+        commit('disableEdition')
+        dispatch('showSuccessAlert', contactUpdatedMessage)
+        dispatch('fetchContacts')
+      })
     },
 
-    showAlertSuccessfullyDeleted({ commit }) {
-      commit('showAlertSuccessfullyDeleted')
+    showSuccessAlert({ commit, dispatch }, alertMessage) {
+      commit('setAlertMessage', alertMessage)
+      commit('showSuccessAlert')
       setTimeout(function () {
-        commit('hideAlertSuccessfullyDeleted')
-      }, alertsDuration)
-    },
-
-    showAlertChangesSuccessfullySaved({ commit }) {
-      commit('showAlertChangesSuccessfullySaved')
-      setTimeout(function () {
-        commit('hideAlertChangesSuccessfullySaved')
+        commit('hideSuccessAlert')
       }, alertsDuration)
     }
   }
