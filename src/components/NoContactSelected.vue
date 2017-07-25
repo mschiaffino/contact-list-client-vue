@@ -7,6 +7,20 @@
   </v-layout>
 </template>
 
+<script>
+import { mapMutations } from 'vuex'
+
+export default {
+  methods: {
+    ...mapMutations(['disableEdition'])
+  },
+  mounted() {
+    this.disableEdition()
+  }
+}
+</script>
+
+
 <style lang="stylus">
   .content{
       display: flex;
