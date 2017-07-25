@@ -51,13 +51,44 @@ export default {
     flex-direction: column;
     overflow-y: hidden;
     padding-bottom: 0;
-    margin-left: 20vw;
+
+    @media (max-width: 1279px) {
+      margin-left: $side-spacing-vp-width-1279;
+    }
+
+    @media (min-width: 1280px) and (max-width: 1365px) {
+      margin-left: $side-spacing-vp-width-1280-1365;      
+    }
+
+    @media (min-width: 1366px) and (max-width: 1919px) {
+      margin-left: $side-spacing-vp-width-1366-1919      
+    }
+    @media (min-width: 1920px) {
+      margin-left: $side-spacing-vp-width-1920      
+    }
   }
 
   main {
     height: calc(100vh - 64px);
-    margin-left: 20vw;
-    padding-right: 20vw;
+
+     @media (max-width: 1279px) {
+      margin-left: $side-spacing-vp-width-1279;
+      padding-right: $side-spacing-vp-width-1279;
+    }
+
+    @media (min-width: 1280px) and (max-width: 1365px) {
+      margin-left: $side-spacing-vp-width-1280-1365;
+      padding-right: $side-spacing-vp-width-1280-1365;
+    }
+
+    @media (min-width: 1366px) and (max-width: 1919px) {
+      margin-left: $side-spacing-vp-width-1366-1919;
+      padding-right: $side-spacing-vp-width-1366-1919;
+    }
+    @media (min-width: 1920px) {
+      margin-left: $side-spacing-vp-width-1920;
+      padding-right: $side-spacing-vp-width-1920;
+    }
     
     .container {
       height: 100%;
@@ -65,6 +96,7 @@ export default {
       .main-content-panel {
         max-width: 640px;
         height: 100% !important;
+        overflow-y: auto;
       }
     }
   }
