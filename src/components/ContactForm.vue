@@ -4,11 +4,11 @@
     <span v-text="contactFullName(contact)" class="full-name my-5 display-2 text-xs-center blue-grey--text"></span>
   
     <v-flex xs8 offset-xs2>
-      <v-text-field :disabled="!editionEnabled" v-model="contact.firstName" name="firstName" label="First name"></v-text-field>
+      <v-text-field :disabled="!editionEnabled" v-model="contact.firstName" name="firstName" label="First name" :rules="[rules.firstName]"></v-text-field>
     </v-flex>
   
     <v-flex xs8 offset-xs2>
-      <v-text-field :disabled="!editionEnabled" v-model="contact.lastName" name="lastName" label="Last name"></v-text-field>
+      <v-text-field :disabled="!editionEnabled" v-model="contact.lastName" name="lastName" label="Last name" :rules="[rules.lastName]"></v-text-field>
     </v-flex>
   
     <v-flex xs8 offset-xs2>
@@ -37,18 +37,40 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
+const requiredMessage = 'Required'
 
 export default {
   name: 'contact-form',
   props: ['showDetails', 'contact'],
   data() {
     return {
-      menu: false
+      menu: false,
+      rules: {
+        firstName: (value) => {
+          this.hasFirstName = !!value
+          this.updateFormIsValid()
+          return this.hasFirstName || requiredMessage
+        },
+        lastName: (value) => {
+          this.hasLastName = !!value
+          this.updateFormIsValid()
+          return this.hasLastName || requiredMessage
+        }
+      },
+      hasFirstName: !this.firstName,
+      hasLastName: !this.lastName
     }
   },
   computed: {
     ...mapGetters(['contactFullName', 'editionEnabled'])
+  },
+  methods: {
+    ...mapMutations(['setContactFormIsValid']),
+
+    updateFormIsValid() {
+      this.setContactFormIsValid(this.hasFirstName && this.hasLastName)
+    }
   }
 }
 </script>

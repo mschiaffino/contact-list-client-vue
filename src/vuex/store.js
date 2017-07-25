@@ -17,6 +17,7 @@ export const store = new Vuex.Store({
     editionEnabled: false,
     fetchingContacts: false,
     showSuccessAlert: false,
+    contactFormIsValid: false,
     alertMessage: ''
   },
   getters: {
@@ -54,6 +55,10 @@ export const store = new Vuex.Store({
 
     showSuccessAlert(state) {
       return state.showSuccessAlert
+    },
+
+    disableSaving(state) {
+      return !state.contactFormIsValid
     }
   },
   mutations: {
@@ -91,6 +96,10 @@ export const store = new Vuex.Store({
 
     hideSuccessAlert(state) {
       state.showSuccessAlert = false
+    },
+
+    setContactFormIsValid(state, isValid) {
+      state.contactFormIsValid = isValid
     }
   },
   actions: {

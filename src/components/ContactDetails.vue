@@ -6,7 +6,7 @@
     <v-fab-transition>
       <v-layout v-show="editionEnabled" justify-center>
         <v-btn secondary @click.native="discardChanges()">Discard</v-btn>
-        <v-btn primary @click.native="saveChanges()">Save</v-btn>
+        <v-btn primary @click.native="saveChanges()" v-bind:disabled="disableSaving">Save</v-btn>
       </v-layout>
     </v-fab-transition>
   
@@ -31,7 +31,7 @@ export default {
     contact: {}
   }),
   computed: {
-    ...mapGetters(['contactById', 'contactFullName', 'editionEnabled', 'fetchingContacts'])
+    ...mapGetters(['contactById', 'contactFullName', 'editionEnabled', 'disableSaving', 'fetchingContacts'])
   },
   methods: {
     ...mapMutations(['disableEdition']),

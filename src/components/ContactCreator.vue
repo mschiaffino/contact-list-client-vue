@@ -5,7 +5,7 @@
     <v-fab-transition>
       <v-layout justify-center>
         <v-btn secondary @click.native="discardChanges()">Discard</v-btn>
-        <v-btn primary @click.native="createContact()">Create</v-btn>
+        <v-btn primary @click.native="createContact()" v-bind:disabled="disableSaving">Create</v-btn>
       </v-layout>
     </v-fab-transition>
   
@@ -14,7 +14,7 @@
 
 <script>
 import ContactForm from './ContactForm'
-import { mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'contact-creator',
@@ -28,6 +28,9 @@ export default {
         zipCode: ''
       }
     }
+  },
+  computed: {
+    ...mapGetters(['disableSaving'])
   },
   methods: {
     ...mapMutations(['enableEdition']),
