@@ -8,7 +8,6 @@ import ContactCreator from '@/components/ContactCreator'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
   routes: [
     { name: 'home', path: '*', component: NoContactSelected },
     { name: 'contact', path: '/contact/:id', component: ContactDetails, props: true },
