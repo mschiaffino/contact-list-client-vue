@@ -33,12 +33,12 @@
   
     <v-dialog v-model="showConfirmationDialog">
       <v-card>
-        <v-card-title class="headline">Leave edition?</v-card-title>
-        <v-card-text>All changes will be lost</v-card-text>
+        <v-card-title class="headline">Discard changes?</v-card-title>
+        <v-card-text>All unsaved changes will be lost</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn class="blue-grey--text darken-1" flat="flat" @click.native="selectionCanceled()">Cancel</v-btn>
-          <v-btn class="red--text darken-1" flat="flat" @click.native="contactSelectionConfirmed()">Leave</v-btn>
+          <v-btn class="red--text darken-1" flat="flat" @click.native="contactSelectionConfirmed()">Discard</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
