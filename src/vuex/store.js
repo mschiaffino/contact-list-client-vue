@@ -16,8 +16,6 @@ export const store = new Vuex.Store({
     searchValue: '',
     editionEnabled: false,
     fetchingContacts: false,
-    showAlertSuccessfullyDeleted: false,
-    showAlertChangesSuccessfullySaved: false,
     showSuccessAlert: false,
     alertMessage: ''
   },
