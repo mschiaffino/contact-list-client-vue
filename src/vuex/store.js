@@ -131,7 +131,6 @@ export const store = new Vuex.Store({
         commit('disableEdition')
         dispatch('showSuccessAlert', contactCreatedMessage)
         router.push({ name: 'contact', params: { id: createdContact._id } })
-        dispatch('fetchContacts')
       })
     },
 
@@ -141,7 +140,6 @@ export const store = new Vuex.Store({
         .then((result) => {
           router.push({ name: 'home' })
           dispatch('showSuccessAlert', contactDeletedMessage)
-          dispatch('fetchContacts')
         })
     },
 
@@ -149,7 +147,6 @@ export const store = new Vuex.Store({
       services.contactsService.update(contact._id, contact).then(() => {
         commit('disableEdition')
         dispatch('showSuccessAlert', contactUpdatedMessage)
-        dispatch('fetchContacts')
       })
     },
 
@@ -163,3 +160,8 @@ export const store = new Vuex.Store({
   }
 })
 
+// Listen to  service events to keep contact list updated in real time
+services.contactsService.on('created', () => { store.dispatch('fetchContacts') })
+services.contactsService.on('updated', () => { store.dispatch('fetchContacts') })
+services.contactsService.on('patched', () => { store.dispatch('fetchContacts') })
+services.contactsService.on('removed', () => { store.dispatch('fetchContacts') })
