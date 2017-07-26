@@ -4,11 +4,11 @@
     <span v-text="contactFullName(contact)" class="full-name my-5 display-2 text-xs-center blue-grey--text"></span>
   
     <v-flex xs8 offset-xs2>
-      <v-text-field :disabled="!editionEnabled" v-model="contact.firstName" name="firstName" label="First name" :rules="[rules.firstName]"></v-text-field>
+      <v-text-field :disabled="!editionEnabled" v-model.trim="contact.firstName" name="firstName" label="First name" :rules="[rules.firstName]"></v-text-field>
     </v-flex>
   
     <v-flex xs8 offset-xs2>
-      <v-text-field :disabled="!editionEnabled" v-model="contact.lastName" name="lastName" label="Last name" :rules="[rules.lastName]"></v-text-field>
+      <v-text-field :disabled="!editionEnabled" v-model.trim="contact.lastName" name="lastName" label="Last name" :rules="[rules.lastName]"></v-text-field>
     </v-flex>
   
     <v-flex xs8 offset-xs2>
@@ -26,11 +26,11 @@
     </v-flex>
   
     <v-flex xs8 offset-xs2>
-      <v-text-field :disabled="!editionEnabled" v-model="contact.phone" name="phone" label="Phone number"></v-text-field>
+      <v-text-field :disabled="!editionEnabled" v-model.trim="contact.phone" name="phone" label="Phone number"></v-text-field>
     </v-flex>
   
     <v-flex xs8 offset-xs2>
-      <v-text-field :disabled="!editionEnabled" v-model="contact.zipCode" name="zipCode" label="Zip code"></v-text-field>
+      <v-text-field :disabled="!editionEnabled" v-model.trim="contact.zipCode" name="zipCode" label="Zip code"></v-text-field>
     </v-flex>
   
   </v-layout>
